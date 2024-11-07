@@ -3,9 +3,9 @@ const UserService = require('../services/user.services');
 exports.register = async(req,res,next)=>{
   try{
     const {name,email,phone,password} = req.body;
-    const successRes = await UserService.registerUser(name,email,phone,password);
+    const user = await UserService.registerUser(name,email,phone,password);
 
-    let tokenData = {name:name,email:email,phone:phone}; 
+    let tokenData = {user_id:user._id.toString(),name:name,email:email,phone:phone}; 
     const token = await UserService.generateToken(tokenData,"secretkey","1h");
 
     res.status(200).json({status : true,success : "User registered successfully",token : token});
@@ -27,7 +27,7 @@ exports.login = async(req,res,next)=>{
     const isMatch = await user.comparePassword(password);
     if(isMatch === false) throw new Error("Password is invalid");
 
-    let tokenData = {_id:user._id,email:user.email,name:user.name,phone:user.phone}; 
+    let tokenData = {user_id:user._id.toString(),email:user.email,name:user.name,phone:user.phone}; 
     const token = await UserService.generateToken(tokenData,"secretkey","1h");
     res.status(200).json({
       status : true,
