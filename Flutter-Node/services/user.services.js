@@ -13,7 +13,6 @@ class UserService{
   static async checkUser(email){
     try{
       var old_user =  await userModel.findOne({email});
-      console.log(old_user);
       return old_user;
     }catch(err){
       throw err;

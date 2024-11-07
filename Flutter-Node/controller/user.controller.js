@@ -17,9 +17,7 @@ exports.register = async(req,res,next)=>{
 exports.login = async(req,res,next)=>{
   try{
     const {email,password} = req.body;
-    console.log(email);
     const user = await UserService.checkUser(email);
-    console.log(user);
     if(!user){
       throw new Error("User doesn't exist");
     }

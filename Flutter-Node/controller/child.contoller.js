@@ -13,10 +13,10 @@ exports.child_entry = async(req,res,next) => {
 exports.child_retrieve = async(req,res,next) => {
   try{
     const {userid} = req.body;
-    print("UserID : " + userid);
+    console.log(userid);
     const child_datas = await ChildService.retrieveChild(userid);
-    print(child_datas);
-    res.json({status : true,success : "Child entry successfully",data:child_datas})
+    console.log(child_datas);
+    res.json({status : true,success : "Child entry successfully",data:child_datas});
   }catch(err){
     throw new err;
   }
